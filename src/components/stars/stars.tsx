@@ -19,9 +19,9 @@ export default function Stars({ rating, id }: StarsProps) {
                     viewBox="0 0 12 11" fill="none">
                     <defs>
                         <linearGradient id={gradientId}>
-                            <stop offset="0%" stop-color="#F2C94C" />
-                            <stop offset={fillPercentage} stop-color="#F2C94C" />
-                            <stop offset={fillPercentage} stop-color="#EEEDF5" />
+                            <stop offset="0%" stopColor="#F2C94C" />
+                            <stop offset={fillPercentage} stopColor="#F2C94C" />
+                            <stop offset={fillPercentage} stopColor="#EEEDF5" />
                         </linearGradient>
                     </defs>
                     <path d="M6 0L7.80568 3.5147L11.7063 4.1459L8.92165 6.9493L9.52671 10.8541L6 9.072L2.47329 10.8541L3.07835 6.9493L0.293661 4.1459L4.19432 3.5147L6 0Z"
