@@ -27,15 +27,20 @@
 }
 
 .name {
+    max-height: 20px;
     color: #1C2A39;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .reviewContainer {
     display: flex;
     margin-bottom: 16px;
+    align-items: center;
 }
 
 .reviewCount {
@@ -48,20 +53,20 @@
 }
 
 .description {
-    height: 40px;
+    height: 32px;
     color: #5C6A79;
-    font-family: Open Sans;
+    font-family: "Open Sans";
     font-size: 10px;
     font-weight: 400;
     line-height: normal;
     text-transform: capitalize;
     margin-bottom: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: -webkit-box;
+    max-width: 100%;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    white-space: normal;
+    overflow: hidden;
+
 }
 
 .price {

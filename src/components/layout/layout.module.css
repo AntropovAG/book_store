@@ -52,9 +52,11 @@
 
 .userPanel {
     display: flex;
+    width: 120px;
     gap: 40px;
     align-items: center;
     position: relative;
+    justify-content: space-between;
 }
 
 .headerButton {
@@ -101,5 +103,4 @@
     flex-direction: column;
     margin: 0 auto;
     max-width: 1120px;
-    align-items: flex-end;
 }

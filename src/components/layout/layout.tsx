@@ -4,6 +4,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import LoginForm from '@/loginForm/loginForm'
+
 
 export default function Layout({ children }: PropsWithChildren) {
     const { pathname } = useRouter()
@@ -41,8 +43,9 @@ export default function Layout({ children }: PropsWithChildren) {
                             </ul>
                         </nav>
                         <div className={styles.userPanel}>
-                            <button className={`${styles.headerButton} ${styles.userProfile}`}></button>
-                            <button className={`${styles.headerButton} ${styles.cart}`}></button>
+                            <Link href={"./profile"} className={`${styles.headerButton} ${styles.userProfile}` }></Link>
+                            <LoginForm />
+                            <Link href={"./cart"} className={`${styles.headerButton} ${styles.cart}`}></Link>
                             <p className={styles.headerItemsCount}>3</p>
                         </div>
                     </div>
