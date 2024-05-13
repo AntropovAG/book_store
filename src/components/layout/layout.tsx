@@ -5,11 +5,17 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import LoginForm from '@/loginForm/loginForm'
+import { useState } from 'react'
 
 
 export default function Layout({ children }: PropsWithChildren) {
-    const { pathname } = useRouter()
-    console.log(pathname)
+    const { pathname } = useRouter();
+    const [isOpened, setIsOpened] = useState<boolean>(false);
+    const toggleMenu = () => {
+        setIsOpened(!isOpened);
+    }
+
+
     return (
         <>
             <Head>
@@ -43,8 +49,8 @@ export default function Layout({ children }: PropsWithChildren) {
                             </ul>
                         </nav>
                         <div className={styles.userPanel}>
-                            <Link href={"./profile"} className={`${styles.headerButton} ${styles.userProfile}` }></Link>
-                            <LoginForm />
+                            <button className={`${styles.headerButton} ${styles.userProfile}`} onClick={toggleMenu}></button>
+                            {isOpened && <LoginForm />}
                             <Link href={"./cart"} className={`${styles.headerButton} ${styles.cart}`}></Link>
                             <p className={styles.headerItemsCount}>3</p>
                         </div>

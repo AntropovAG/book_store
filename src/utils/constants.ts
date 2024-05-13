@@ -74,3 +74,7 @@ export const books = [
     price: 12.99,
   },
 ];
+
+export const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
+export const URL = `https://www.googleapis.com/books/v1/volumes?q="subject:Architecture"&key=${API_KEY}&printType=books&startIndex=0&maxResults=6&langRestrict=en`

@@ -21,7 +21,7 @@ export default function Item({ book }: ItemProps) {
         <div className={styles.card}>
             <img className={styles.image} src={image ? image : "/book_default.png"} alt="book" />
             <div className={styles.infoContainer}>
-                <p className={styles.author}>{authors.join(", ")}</p>
+                <p className={styles.author}>{authors != null ? authors.join(", "): "No authors"}</p>
                 <h2 className={styles.name}>{name}</h2>
                 {rating || reviews &&
                     (<div className={styles.reviewContainer}>
