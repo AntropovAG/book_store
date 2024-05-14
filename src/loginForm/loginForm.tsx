@@ -1,13 +1,22 @@
 import { useRouter } from 'next/router';
 import styles from './loginForm.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/utils/hooks';
+import { logIn } from '@/redux/authSlice';
+import { resetErrors } from '@/redux/authSlice';
 
-export default function LoginForm() {
+interface Props {
+    setIsOpened: (value: boolean) => void;
+}
+
+export default function LoginForm({setIsOpened}: Props) {
 const [email, setEmail] = useState<string>('');
 const [password, setPassword] = useState<string>('');
-const [emailError, setEmailError] = useState<string>('');
-const [passwordError, setPasswordError] = useState<string>('');
+const emailError = useAppSelector((state) => state.auth.emailError);
+const passwordError = useAppSelector((state) => state.auth.passwordError);
+const isLogged = useAppSelector((state) => state.auth.loggedIn);
 const { push } = useRouter();
+const dispatch = useAppDispatch();
 
 const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -19,33 +28,16 @@ const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setEmailError('');
-    setPasswordError('');
-    try {
-        const response = await fetch('/api/authorize', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            if (data.type === 'email') {
-                setEmailError(data.message);
-            } else if (data.type === 'password') {
-                setPasswordError(data.message);
-            }
-            throw new Error(data.message || 'Something went wrong');
-        }
-        console.log('Login Successful:', data);
-        push('/profile');
-    } catch (error) {
-        console.log('Login Error:', error);
-    }
+    dispatch(resetErrors());
+    dispatch(logIn({ email, password }));
 }
+
+useEffect(() => {
+    if (isLogged) {
+        setIsOpened(false);
+        push('/profile');
+    }
+}, [isLogged, setIsOpened, push]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} noValidate>

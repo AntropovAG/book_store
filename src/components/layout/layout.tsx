@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import LoginForm from '@/loginForm/loginForm'
 import { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks'
 
 
 export default function Layout({ children }: PropsWithChildren) {
@@ -14,7 +15,8 @@ export default function Layout({ children }: PropsWithChildren) {
     const toggleMenu = () => {
         setIsOpened(!isOpened);
     }
-
+    const dispatch = useAppDispatch();
+    const isLogged = useAppSelector((state) => state.auth.loggedIn);
 
     return (
         <>
@@ -49,8 +51,12 @@ export default function Layout({ children }: PropsWithChildren) {
                             </ul>
                         </nav>
                         <div className={styles.userPanel}>
+                            {isLogged ? 
+                            <Link href={"./profile"} className={`${styles.headerButton} ${styles.userProfile}`}></Link> :
                             <button className={`${styles.headerButton} ${styles.userProfile}`} onClick={toggleMenu}></button>
-                            {isOpened && <LoginForm />}
+                            }
+                            
+                            {isOpened && <LoginForm setIsOpened={setIsOpened}/>}
                             <Link href={"./cart"} className={`${styles.headerButton} ${styles.cart}`}></Link>
                             <p className={styles.headerItemsCount}>3</p>
                         </div>

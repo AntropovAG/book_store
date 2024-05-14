@@ -7,7 +7,6 @@ import CartItem from "@/cartItem/cartItem"
 
 export default function Cart() {
     return (
-        <Layout>
             <div className={styles.container}>
                 <h1 className={styles.title}>shoping cart</h1>
                 <div className={styles.itemsContainer}>
@@ -27,6 +26,5 @@ export default function Cart() {
                 <p className={styles.totalPrice}>total price: 10000 Euro</p>
                 <button className={styles.button} type="button">checkout</button>
             </div>
-        </Layout>
     )
 }

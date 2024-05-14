@@ -1,5 +1,7 @@
 import styles from './item.module.css';
 import Stars from '../stars/stars';
+import { useAppDispatch } from '@/utils/hooks';
+import { addToCart } from '@/redux/booksSlice';
 
 interface ItemProps {
     book: {
@@ -11,11 +13,16 @@ interface ItemProps {
         rating: number;
         reviews: number;
         image: string;
-    }[];
+    };
 }
 
 export default function Item({ book }: ItemProps) {
+    const dispatch = useAppDispatch();
     const { id, name, authors, description, price, rating, image, reviews } = book;
+
+    const handleClick = () => {
+        dispatch(addToCart(book));
+    }
 
     return (
         <div className={styles.card}>
@@ -30,12 +37,13 @@ export default function Item({ book }: ItemProps) {
                     </div>)}
 
                 <p className={styles.description}>{description}</p>
-                {price &&
+                {/* {price &&
                     (<>
                         <p className={styles.price}>{price}</p>
                         <button className={styles.button} type="button">buy now</button>
-                    </>)}
-
+                    </>)} */}
+                <p className={styles.price}>{price}</p>
+                <button className={styles.button} type="button" onClick={handleClick}>buy now</button>
             </div>
         </div>
     )

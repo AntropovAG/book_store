@@ -4,7 +4,6 @@ import Image from "next/image"
 
 export default function Profile() {
     return (
-        <Layout>
             <div className={styles.wrapper}>
                 <div className={styles.container}>
                     <h2 className={styles.title}>Profile</h2>
@@ -29,7 +28,6 @@ export default function Profile() {
                     <p className={styles.grayText}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam maxime corporis ad unde expedita odit tempore porro recusandae similique est fugiat qui quae voluptas et eum totam, natus vero. Tempore?</p>
                 </div>
             </div>
-        </Layout>
     )
 }
  
