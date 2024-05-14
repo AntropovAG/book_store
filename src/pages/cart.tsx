@@ -1,11 +1,11 @@
-import Layout from "@/components/layout/layout"
 import styles from "@/styles/cart.module.css"
-import Stars from "@/components/stars/stars"
-import CountButtons from "@/components/countButtons/countButtons"
-import Image from "next/image"
 import CartItem from "@/cartItem/cartItem"
+import { useAppSelector } from "@/utils/hooks"
 
 export default function Cart() {
+    const booksInCart = useAppSelector((state) => state.books.booksInCart);
+    const totalPrice = booksInCart.reduce((acc, book) => acc + book.price, 0);
+
     return (
             <div className={styles.container}>
                 <h1 className={styles.title}>shoping cart</h1>
@@ -17,13 +17,12 @@ export default function Cart() {
                         <div className={styles.delivery}>delivery</div>
                     </div>
                     <div className={styles.itemsList}>
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
+                        {booksInCart.map((book, index) => (
+                            <CartItem key={index} book={book} />
+                        ))}
                     </div>
                 </div>
-                <p className={styles.totalPrice}>total price: 10000 Euro</p>
+                <p className={styles.totalPrice}>total price: {totalPrice!==0?totalPrice:"no total"}</p>
                 <button className={styles.button} type="button">checkout</button>
             </div>
     )

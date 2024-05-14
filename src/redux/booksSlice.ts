@@ -48,13 +48,21 @@ const booksSlice = createSlice({
             state.filter = action.payload;
         },
         addToCart: (state, action: PayloadAction<Book>) => {
+            if (state.booksInCart.some((book) => book.id === action.payload.id)) {
+                state.booksInCart = state.booksInCart.map((book) =>
+                    book.id === action.payload.id
+                        ? { ...book, quantity: book.quantity + 1 }
+                        : book
+                );
+                return;
+            }
+
             const addedBook = {
                 ...action.payload,
                 quantity: 1,
                 deliveryStatus: "Shipping: delivery",
             };
-            console.log(addedBook);
-            console.log(state.booksInCart);
+
             state.booksInCart.push(addedBook);
         },
     },

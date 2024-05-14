@@ -3,24 +3,28 @@ import Image from 'next/image'
 import Stars from '@/components/stars/stars'
 import CountButtons from '@/components/countButtons/countButtons'
 import styles from './cartItem.module.css'
+import { BookInCart } from '@/utils/interfaces'
 
-export default function CartItem() {
+export default function CartItem({ book }: BookInCart) {
+    console.log(book)
+    const { name, authors, rating, reviews, price, quantity, deliveryStatus, image, id } = book;
     return (
         <>
             <div className={styles.card}>
-                <Image className={styles.image} src={"/book_default.png"} alt="book" width={102} height={145} />
+                <Image className={styles.image} src={image} alt="book" width={102} height={145} />
                 <div className={styles.infoContainer}>
-                    <h2 className={styles.bookName}>Book name</h2>
-                    <p className={styles.author}>author name</p>
+                    <h2 className={styles.bookName}>{name}</h2>
+                    <p className={styles.author}>{authors.join(", ")}</p>
+                    {rating || reviews && 
                     <div className={styles.reviewContainer}>
-                        <Stars rating={4} id={"111"} />
-                        <p className={styles.reviewCount}>4 reviews</p>
-                    </div>
+                        <Stars rating={rating} id={id} />
+                        <p className={styles.reviewCount}>{reviews} review(s)</p>
+                    </div>}
                 </div>
             </div>
-            <CountButtons />
-            <p className={styles.priceInfo}>$38.66</p>
-            <p className={styles.deliveryinfo}>Shipping: delivery</p>
+            <CountButtons quantity={quantity}/>
+            <p className={styles.priceInfo}>{price ? price : "no price"}</p>
+            <p className={styles.deliveryinfo}>{deliveryStatus}</p>
         </>
     )
 }

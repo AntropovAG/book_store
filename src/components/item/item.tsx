@@ -1,7 +1,8 @@
 import styles from './item.module.css';
 import Stars from '../stars/stars';
-import { useAppDispatch } from '@/utils/hooks';
+import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { addToCart } from '@/redux/booksSlice';
+import clsx from 'clsx';
 
 interface ItemProps {
     book: {
@@ -19,6 +20,7 @@ interface ItemProps {
 export default function Item({ book }: ItemProps) {
     const dispatch = useAppDispatch();
     const { id, name, authors, description, price, rating, image, reviews } = book;
+    const isInCart = useAppSelector((state) => state.books.booksInCart.some((book) => book.id === id));
 
     const handleClick = () => {
         dispatch(addToCart(book));
@@ -43,7 +45,9 @@ export default function Item({ book }: ItemProps) {
                         <button className={styles.button} type="button">buy now</button>
                     </>)} */}
                 <p className={styles.price}>{price}</p>
-                <button className={styles.button} type="button" onClick={handleClick}>buy now</button>
+                <button className={clsx(styles.button,
+                    { [styles.buttonPressed]: isInCart }
+                )} type="button" onClick={handleClick}>buy now</button>
             </div>
         </div>
     )

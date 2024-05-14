@@ -17,6 +17,7 @@ export default function Layout({ children }: PropsWithChildren) {
     }
     const dispatch = useAppDispatch();
     const isLogged = useAppSelector((state) => state.auth.loggedIn);
+    const itemsCount = useAppSelector((state) => state.books.booksInCart.length);
 
     return (
         <>
@@ -58,7 +59,7 @@ export default function Layout({ children }: PropsWithChildren) {
                             
                             {isOpened && <LoginForm setIsOpened={setIsOpened}/>}
                             <Link href={"./cart"} className={`${styles.headerButton} ${styles.cart}`}></Link>
-                            <p className={styles.headerItemsCount}>3</p>
+                            {itemsCount && <p className={styles.headerItemsCount}>{itemsCount}</p>}
                         </div>
                     </div>
                 </header>
