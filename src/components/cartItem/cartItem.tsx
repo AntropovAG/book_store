@@ -5,7 +5,7 @@ import CountButtons from '@/components/countButtons/countButtons'
 import styles from './cartItem.module.css'
 import { BookInCart } from '@/utils/interfaces'
 import { addOneItem, removeOneItem } from '@/redux/booksSlice'
-import { useAppDispatch } from '@/utils/hooks'
+import { useAppDispatch, useAppSelector } from '@/utils/hooks'
 
 interface CartItemProps {
     book: BookInCart;
@@ -15,12 +15,21 @@ interface CartItemProps {
 export default function CartItem({ book }: CartItemProps) {
     const { name, authors, rating, reviews, price, currency, quantity, deliveryStatus, image, id } = book;
     const dispatch = useAppDispatch();
+    const isLogged = useAppSelector((state) => state.auth.loggedIn);
 
     const handleAdd = () => {
+        if (!isLogged) {
+            alert("Please log in to add items to cart");
+            return;
+        }
         dispatch(addOneItem(id));
     }
 
     const handleRemove = () => {
+        if (!isLogged) {
+            alert("Please log in to remove items from cart");
+            return;
+        }
         dispatch(removeOneItem(id));
     }
     

@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import LoginForm from '@/loginForm/loginForm'
 import { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '@/utils/hooks'
+import { useAppSelector } from '@/utils/hooks'
 import { Montserrat } from 'next/font/google';
 
 const font = Montserrat({
@@ -21,7 +21,6 @@ export default function Layout({ children }: PropsWithChildren) {
     const toggleMenu = () => {
         setIsOpened(!isOpened);
     }
-    const dispatch = useAppDispatch();
     const isLogged = useAppSelector((state) => state.auth.loggedIn);
     const itemsCount = useAppSelector((state) => state.books.booksInCart.length);
 
@@ -63,10 +62,9 @@ export default function Layout({ children }: PropsWithChildren) {
                                 <Link href={"./profile"} className={`${styles.headerButton} ${styles.userProfile}`}></Link> :
                                 <button className={`${styles.headerButton} ${styles.userProfile}`} onClick={toggleMenu}></button>
                             }
-
                             {isOpened && <LoginForm setIsOpened={setIsOpened} />}
                             <Link href={"./cart"} className={`${styles.headerButton} ${styles.cart}`}></Link>
-                            {itemsCount && <p className={styles.headerItemsCount}>{itemsCount}</p>}
+                            {itemsCount > 0 ? (<p className={styles.headerItemsCount}>{itemsCount}</p>) : null}
                         </div>
                     </div>
                 </header>

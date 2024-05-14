@@ -93,7 +93,12 @@ const booksSlice = createSlice({
                 description: book.volumeInfo.description
                     ? book.volumeInfo.description
                     : null,
-                price: book.saleInfo.retailPrice ? book.saleInfo.retailPrice : null,
+                price: book.saleInfo.retailPrice
+                    ? book.saleInfo.retailPrice.amount
+                    : null,
+                currency: book.saleInfo.retailPrice
+                    ? book.saleInfo.retailPrice.currencyCode
+                    : null,
                 rating: book.volumeInfo.averageRating
                     ? book.volumeInfo.averageRating
                     : null,
@@ -113,5 +118,6 @@ const booksSlice = createSlice({
     },
 });
 
-export const { setBooks, setFilter, addToCart, addOneItem, removeOneItem } = booksSlice.actions;
+export const { setBooks, setFilter, addToCart, addOneItem, removeOneItem } =
+    booksSlice.actions;
 export default booksSlice.reducer;

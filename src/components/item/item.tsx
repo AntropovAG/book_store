@@ -23,9 +23,14 @@ export default function Item({ book }: ItemProps) {
     const dispatch = useAppDispatch();
     const { id, name, authors, description, price, currency, rating, image, reviews } = book;
     const isInCart = useAppSelector((state) => state.books.booksInCart.some((book) => book.id === id));
+    const isLogged = useAppSelector((state) => state.auth.loggedIn);
 
     const handleClick = () => {
+        if (isLogged){
         dispatch(addToCart(book));
+    } else {
+        alert('Please log in to add items to cart');
+    }
     }
 
     return (
