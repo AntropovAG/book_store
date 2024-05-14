@@ -4,6 +4,7 @@ export interface Book {
     authors: string[];
     description: string;
     price: number;
+    currency: string;
     rating: number;
     reviews: number;
     image: string;
@@ -15,6 +16,7 @@ export interface BookInCart {
     authors: string[];
     description: string;
     price: number;
+    currency: string;
     rating: number;
     reviews: number;
     image: string;

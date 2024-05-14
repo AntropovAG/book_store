@@ -2,6 +2,7 @@ import styles from './item.module.css';
 import Stars from '../stars/stars';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { addToCart } from '@/redux/booksSlice';
+import Image from 'next/image';
 import clsx from 'clsx';
 
 interface ItemProps {
@@ -11,6 +12,7 @@ interface ItemProps {
         authors: string[];
         description: string;
         price: number;
+        currency: string;
         rating: number;
         reviews: number;
         image: string;
@@ -19,7 +21,7 @@ interface ItemProps {
 
 export default function Item({ book }: ItemProps) {
     const dispatch = useAppDispatch();
-    const { id, name, authors, description, price, rating, image, reviews } = book;
+    const { id, name, authors, description, price, currency, rating, image, reviews } = book;
     const isInCart = useAppSelector((state) => state.books.booksInCart.some((book) => book.id === id));
 
     const handleClick = () => {
@@ -28,7 +30,7 @@ export default function Item({ book }: ItemProps) {
 
     return (
         <div className={styles.card}>
-            <img className={styles.image} src={image ? image : "/book_default.png"} alt="book" />
+            <Image className={styles.image} src={image ? image : "/book_default.png"} alt="book" width={213} height={300}/>
             <div className={styles.infoContainer}>
                 <p className={styles.author}>{authors != null ? authors.join(", "): "No authors"}</p>
                 <h2 className={styles.name}>{name}</h2>
@@ -44,7 +46,7 @@ export default function Item({ book }: ItemProps) {
                         <p className={styles.price}>{price}</p>
                         <button className={styles.button} type="button">buy now</button>
                     </>)} */}
-                <p className={styles.price}>{price}</p>
+                <p className={styles.price}>{price? `${currency} ${price}`: 'no price'}</p>
                 <button className={clsx(styles.button,
                     { [styles.buttonPressed]: isInCart }
                 )} type="button" onClick={handleClick}>buy now</button>

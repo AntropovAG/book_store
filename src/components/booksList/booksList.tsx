@@ -8,6 +8,7 @@ interface BooksListProps {
         authors: string[];
         description: string;
         price: number;
+        currency: string;
         rating: number;
         reviews: number;
         image: string;

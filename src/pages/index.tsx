@@ -17,6 +17,7 @@ interface Props {
     authors: string[];
     description: string;
     price: number;
+    currency: string;
     rating: number;
     reviews: number;
     image: string;
@@ -61,7 +62,8 @@ export async function getStaticProps() {
     name: book.volumeInfo.title ? book.volumeInfo.title : null,
     authors: book.volumeInfo.authors ? book.volumeInfo.authors : null,
     description: book.volumeInfo.description ? book.volumeInfo.description : null,
-    price: book.saleInfo.retailPrice ? book.saleInfo.retailPrice : null,
+    price: book.saleInfo.retailPrice ? book.saleInfo.retailPrice.amount : null,
+    currency: book.saleInfo.retailPrice ? book.saleInfo.retailPrice.currencyCode : null,
     rating: book.volumeInfo.averageRating ? book.volumeInfo.averageRating : null,
     reviews: book.volumeInfo.ratingsCount ? book.volumeInfo.ratingsCount : null,
     image: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null

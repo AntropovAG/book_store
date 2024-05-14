@@ -13,7 +13,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ book }: CartItemProps) {
-    const { name, authors, rating, reviews, price, quantity, deliveryStatus, image, id } = book;
+    const { name, authors, rating, reviews, price, currency, quantity, deliveryStatus, image, id } = book;
     const dispatch = useAppDispatch();
 
     const handleAdd = () => {
@@ -27,7 +27,7 @@ export default function CartItem({ book }: CartItemProps) {
     return (
         <>
             <div className={styles.card}>
-                <Image className={styles.image} src={image} alt="book" width={102} height={145} />
+                <Image className={styles.image} src={image ? image : "/book_default.png"} alt="book" width={102} height={145} />
                 <div className={styles.infoContainer}>
                     <h2 className={styles.bookName}>{name}</h2>
                     <p className={styles.author}>{authors.join(", ")}</p>
@@ -39,7 +39,7 @@ export default function CartItem({ book }: CartItemProps) {
                 </div>
             </div>
             <CountButtons quantity={quantity} add={handleAdd} remove={handleRemove} />
-            <p className={styles.priceInfo}>{price ? price : "no price"}</p>
+            <p className={styles.priceInfo}>{price ? `${currency} ${price}`: "no price"}</p>
             <p className={styles.deliveryinfo}>{deliveryStatus}</p>
         </>
     )
