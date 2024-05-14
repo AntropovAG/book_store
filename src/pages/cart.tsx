@@ -1,10 +1,10 @@
 import styles from "@/styles/cart.module.css"
-import CartItem from "@/cartItem/cartItem"
+import CartItem from "@/components/cartItem/cartItem"
 import { useAppSelector } from "@/utils/hooks"
 
 export default function Cart() {
     const booksInCart = useAppSelector((state) => state.books.booksInCart);
-    const totalPrice = booksInCart.reduce((acc, book) => acc + book.price, 0);
+    const totalPrice = booksInCart.reduce((acc, book) => acc + book.price * book.quantity, 0);
 
     return (
             <div className={styles.container}>

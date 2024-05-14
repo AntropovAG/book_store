@@ -1,6 +1,11 @@
 import styles from './loadMoreButton.module.css'
 
-export default function LoadMoreButton({ setPage }) {
+interface LoadMoreButtonProps {
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+
+}
+
+export default function LoadMoreButton({ setPage }: LoadMoreButtonProps) {
 
     const handleClick = () => {
         setPage((prev) => prev + 1);

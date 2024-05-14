@@ -11,13 +11,17 @@ interface LogInArgs {
     password: string;
 }
 
-export const logIn = createAsyncThunk(
+interface AuthError {
+    message: string;
+    type: 'email' | 'password' | 'unknown';
+}
+
+export const logIn = createAsyncThunk<any, LogInArgs, { rejectValue: AuthError }>(
     "auth/logIn",
-    async (args:LogInArgs, { rejectWithValue }) => {
+    async (args: LogInArgs, { rejectWithValue }) => {
         const { email, password } = args;
         try {
-            const response = await fetch(`/api/auth`,
-            {
+            const response = await fetch(`/api/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,12 +31,12 @@ export const logIn = createAsyncThunk(
             const data = await response.json();
 
             if (!response.ok) {
-                return rejectWithValue({message: data.message, type: data.type});
+                return rejectWithValue({ message: data.message, type: data.type });
             }
 
             return data;
-        } catch (error:any) {
-            return rejectWithValue(error.message);
+        } catch (error: any) {
+            return rejectWithValue({ message: error.message, type: 'unknown' });
         }
     }
 );

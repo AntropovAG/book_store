@@ -56,14 +56,32 @@ const booksSlice = createSlice({
                 );
                 return;
             }
-
             const addedBook = {
                 ...action.payload,
                 quantity: 1,
                 deliveryStatus: "Shipping: delivery",
             };
-
             state.booksInCart.push(addedBook);
+        },
+        addOneItem: (state, action: PayloadAction<string>) => {
+            state.booksInCart = state.booksInCart.map((book) =>
+                book.id === action.payload
+                    ? { ...book, quantity: book.quantity + 1 }
+                    : book
+            );
+        },
+        removeOneItem: (state, action: PayloadAction<string>) => {
+            state.booksInCart = state.booksInCart.reduce((acc, book) => {
+                if (book.id === action.payload) {
+                    const updatedQuantity = book.quantity - 1;
+                    if (updatedQuantity > 0) {
+                        acc.push({ ...book, quantity: updatedQuantity });
+                    }
+                } else {
+                    acc.push(book);
+                }
+                return acc;
+            }, [] as BookInCart[]);
         },
     },
     extraReducers: (builder) => {
@@ -95,5 +113,5 @@ const booksSlice = createSlice({
     },
 });
 
-export const { setBooks, setFilter, addToCart } = booksSlice.actions;
+export const { setBooks, setFilter, addToCart, addOneItem, removeOneItem } = booksSlice.actions;
 export default booksSlice.reducer;

@@ -11,7 +11,7 @@ import { fetchBooks } from "@/redux/booksSlice";
 
 
 interface Props {
-  books: {
+  initialBooks: {
     id: string;
     name: string;
     authors: string[];
