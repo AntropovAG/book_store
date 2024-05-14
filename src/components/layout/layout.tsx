@@ -63,8 +63,13 @@ export default function Layout({ children }: PropsWithChildren) {
                                 <button className={`${styles.headerButton} ${styles.userProfile}`} onClick={toggleMenu}></button>
                             }
                             {isOpened && <LoginForm setIsOpened={setIsOpened} />}
-                            <Link href={"./cart"} className={`${styles.headerButton} ${styles.cart}`}></Link>
-                            {itemsCount > 0 ? (<p className={styles.headerItemsCount}>{itemsCount}</p>) : null}
+                            {isLogged ?
+                                <>
+                                    <Link href={"./cart"} className={`${styles.headerButton} ${styles.cart}`}></Link>
+                                    {itemsCount > 0 ? (<p className={styles.headerItemsCount}>{itemsCount}</p>) : null}
+                                </> :
+                                <div className={`${styles.headerButton} ${styles.cart}`}></div>
+                            }
                         </div>
                     </div>
                 </header>
