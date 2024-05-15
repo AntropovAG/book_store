@@ -6,7 +6,7 @@ import { useMemo } from "react";
 export default function Cart() {
     const booksInCart = useAppSelector((state) => state.books.booksInCart);
     const totalPrice = useMemo(() => {
-        return booksInCart.reduce((acc, book) => acc + book.price * book.quantity, 0);
+        return Math.round(booksInCart.reduce((acc, book) => acc + book.price * book.quantity, 0) * 100) / 100;
     }, [booksInCart]);
 
     return (
