@@ -17,7 +17,7 @@ export default function CartItem({ book }: CartItemProps) {
     const dispatch = useAppDispatch();
     const isLogged = useAppSelector((state) => state.auth.loggedIn);
 
-    const handleAdd = () => {
+    const handleAdd = (): void => {
         if (!isLogged) {
             alert("Please log in to add items to cart");
             return;
@@ -25,7 +25,7 @@ export default function CartItem({ book }: CartItemProps) {
         dispatch(addOneItem(id));
     }
 
-    const handleRemove = () => {
+    const handleRemove = (): void => {
         if (!isLogged) {
             alert("Please log in to remove items from cart");
             return;
